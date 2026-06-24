@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Information Theory: Claude Without Anthropic
+title: "Information Theory: Claude Without Anthropic"
 date: 2026-06-24 
 published: true
 description: this is what a post that can be cited looks like
