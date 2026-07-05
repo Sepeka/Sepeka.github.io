@@ -5,7 +5,7 @@ permalink: /
 
 profile:
   align: right
-  image: prof_pic.jpg
+  image: photo_2025-01-29_01-39-09.jpg
   image_circular: false # crops the image to make it circular
   more_info: >
     <p>My home</p>
