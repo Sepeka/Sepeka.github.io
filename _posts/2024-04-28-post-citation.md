@@ -1,5 +1,6 @@
 ---
 layout: post
+permalink: /blog/2026/Interactivate-Information-Theory/
 title: "Information Theory: Claude Without Anthropic"
 date: 2026-06-24 
 published: true
