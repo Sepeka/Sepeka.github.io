@@ -1,0 +1,6 @@
+[tool.marimo.runtime]
+auto_instantiate = true
+on_cell_change = "autorun"
+
+[tool.marimo.display]
+custom_css = ["notebook.css"]

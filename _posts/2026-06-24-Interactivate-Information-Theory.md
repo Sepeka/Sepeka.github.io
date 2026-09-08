@@ -11,7 +11,13 @@ citation: true
 
 Claude Shannon sought to inject a note of moderation by warning that his field was being oversold as a universal panacea [\[1\]](#reference-1 "The Bandwagon"); ironically, time has shown that this temporary "bandwagon" was actually the arrival of one of the most enduring mathematical frameworks ever conceived.
 
-In the next few months, we will learn information theory in an interactive, modern way.
+Chapter 1 previews the central questions of information theory: how efficiently information can be described, and how reliably it can be transmitted through a noisy channel. It introduces entropy as the fundamental limit of lossless compression, mutual information as a measure of dependence, and channel capacity as the highest reliable communication rate. It also shows how these ideas connect to typical sequences, statistical inference, gambling, and Kolmogorov complexity.
+
+We begin the detailed development with entropy in Section 2.1. The accompanying notebook follows the book's definitions, lemmas, and examples through interactive plots, experiments, Python calculations, and Lean proofs.
+
+[Open the interactive Section 2.1 notebook in Molab](https://molab.marimo.io/github/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py){:target="_blank" rel="noopener noreferrer"}
+
+[View the notebook source on GitHub](https://github.com/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py){:target="_blank" rel="noopener noreferrer"}
 
 ---
 

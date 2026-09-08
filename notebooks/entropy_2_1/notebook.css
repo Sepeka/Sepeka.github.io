@@ -1,0 +1,76 @@
+/* Larger reading text, without scaling headings or the code editor. */
+.markdown p,
+.markdown .paragraph,
+.markdown li {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Enlarge only the two theorem choices, including their radio targets. */
+marimo-radio[data-options*="2.1.1"] {
+  zoom: 1.25;
+}
+
+/* Displayed mathematics should be comfortably readable beside the body text. */
+.katex-display {
+  font-size: 18px !important;
+}
+
+.entropy-breakdown-table {
+  overflow-x: auto;
+  border: 1px solid #c8cbd2;
+  border-radius: 8px;
+}
+
+.entropy-breakdown-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.entropy-breakdown-table th,
+.entropy-breakdown-table td {
+  padding: 10px 12px;
+  text-align: left;
+  border-right: 1px solid #d7dae0;
+  border-bottom: 1px solid #d7dae0;
+  white-space: nowrap;
+}
+
+.entropy-breakdown-table th:last-child,
+.entropy-breakdown-table td:last-child {
+  border-right: 0;
+}
+
+.entropy-breakdown-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.entropy-breakdown-table th {
+  background: #f4f2fb;
+  font-weight: 650;
+}
+
+.entropy-table-formula {
+  color: #6842b8;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.1em;
+  font-weight: 700;
+}
+
+.dark .entropy-breakdown-table {
+  border-color: #454954;
+}
+
+.dark .entropy-breakdown-table th,
+.dark .entropy-breakdown-table td {
+  border-color: #454954;
+}
+
+.dark .entropy-breakdown-table th {
+  background: #20212a;
+}
+
+.dark .entropy-table-formula {
+  color: #b9a4ff;
+}
