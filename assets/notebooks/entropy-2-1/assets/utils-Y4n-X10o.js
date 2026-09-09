@@ -1,0 +1,1 @@
+function n(t){if("object"==typeof t&&t){if("width"in t)return t.width;if("spec"in t)return n(t.spec)}}function r(t){return t&&0!==Object.keys(t).length?e.mapValues(t,t=>"date"===t||"time"===t?"string":"datetime"===t?"date":t):"auto"}import{t as e}from"./objects-CrbstYTV.js";export{r as n,n as t};

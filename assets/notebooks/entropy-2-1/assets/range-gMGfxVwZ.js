@@ -1,0 +1,1 @@
+function c(r,t,a){r=+r,t=+t,a=(e=arguments.length)<2?(t=r,r=0,1):e<3?1:+a;for(var c=-1,e=0|Math.max(0,Math.ceil((t-r)/a)),n=Array(e);++c<e;)n[c]=r+c*a;return n}export{c as t};

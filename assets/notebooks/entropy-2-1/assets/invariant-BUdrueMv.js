@@ -1,0 +1,1 @@
+function t(r,t){if(!r)throw Error(t)}export{t};

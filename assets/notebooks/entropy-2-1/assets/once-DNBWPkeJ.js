@@ -1,0 +1,1 @@
+function f(t){let r,n=!1;return function(...i){return n||(n=!0,r=t.apply(this,i)),r}}function c(t){let r,n,i,o=!1;return function(...f){if(void 0===n||!a(f,n)){try{r=t.apply(this,f),o=!1,i=void 0}catch(t){o=!0,i=t}n=f}if(o)throw i;return r}}import{o as a}from"./arrays-UzzAzxsG.js";export{f as n,c as t};

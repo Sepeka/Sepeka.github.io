@@ -1,0 +1,1 @@
+function d(a){let o=a.trim();return o?r.isSupported(o)?{code:r.transformIn(o).code,language:"markdown"}:e.isSupported(o)?{code:e.transformIn(o).code,language:"sql"}:{code:a,language:"python"}:{code:a,language:"python"}}import{cr as a,lr as t}from"./cells-DTFqEQb0.js";var r=new t,e=new a;export{d as t};

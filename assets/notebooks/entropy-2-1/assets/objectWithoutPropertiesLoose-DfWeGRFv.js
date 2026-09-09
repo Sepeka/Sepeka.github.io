@@ -1,0 +1,1 @@
+function f(n,r){if(null==n)return{};var f={};for(var i in n)if({}.hasOwnProperty.call(n,i)){if(-1!==r.indexOf(i))continue;f[i]=n[i]}return f}export{f as t};

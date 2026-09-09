@@ -1,0 +1,1 @@
+function e(o){return"symbol"==typeof o||t(o)&&r(o)==a}import{n as t,r}from"./isObject-DvLSfCY5.js";var a="[object Symbol]",n=e;export{n as t};

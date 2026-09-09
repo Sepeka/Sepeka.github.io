@@ -1,0 +1,1 @@
+function a(a){return()=>({TYPE:a,is:e=>e.type===a,create:e=>new CustomEvent(a,e)})}function m(a,e){return n.create({bubbles:!0,composed:!0,detail:{value:a,element:e}})}const n=a("marimo-value-input")(),r=a("marimo-value-update")(),u=a("marimo-value-ready")(),i=a("marimo-incoming-message")();export{m as a,r as i,n,u as r,i as t};

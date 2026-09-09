@@ -113,17 +113,23 @@ To validate the proofs and update the saved result:
 python lab_support.py
 ```
 
-## Open in Molab
+## WebAssembly publishing
 
-The notebook is stored in the website repository and can be imported directly
-by Molab:
+`build_web.py` creates an auto-running browser viewer and an editable browser
+notebook under `edit/`. Both execute Python with WebAssembly and require no
+local Python installation or application server for visitors.
 
-<https://molab.marimo.io/github/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py>
+The website deployment workflow builds them with:
 
-Molab receives the surrounding repository files used by the notebook, including
-the interactive entropy explorer, styles, Python helpers, and proof artifacts.
-After creating a permanent Molab mirror, its share URL can replace the import
-URL in the blog post.
+```bash
+python3 notebooks/entropy_2_1/build_web.py \
+  --output assets/notebooks/entropy-2-1
+```
+
+Jekyll copies the generated files into the site. The blog post embeds the
+viewer and links to its full-screen page. The build deliberately omits
+precomputed marimo output so the browser creates live UI controls rather than
+displaying disconnected snapshots.
 
 The proofs were checked offline. The notebook keeps the **Open and edit this
 proof in Lean Web** link for readers who want to experiment with the source.

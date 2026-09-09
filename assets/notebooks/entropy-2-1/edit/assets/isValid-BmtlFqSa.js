@@ -1,0 +1,1 @@
+function e(t){return t instanceof Date||"object"==typeof t&&"[object Date]"===Object.prototype.toString.call(t)}function r(t){return!(!e(t)&&"number"!=typeof t||isNaN(+o(t)))}import{t as o}from"./toDate-QOk09NqD.js";export{r as t};
