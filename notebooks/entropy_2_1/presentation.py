@@ -1,7 +1,6 @@
 """Theme-aware plot output and native marimo appearance links."""
 import base64
 from html import escape
-import inspect
 from io import BytesIO
 from urllib.parse import urlencode
 from pygments import highlight
@@ -28,9 +27,54 @@ THEME_STYLES = '''<style>
 </style>'''
 
 
+def binary_entropy_svg(probability):
+    """Render the binary entropy curve as lightweight responsive SVG."""
+    probability = float(probability)
+    x = lambda value: 70 + 690 * value
+    y = lambda value: 305 - 270 * value
+    points = []
+    for index in range(201):
+        p = index / 200
+        entropy = entropy_bits([p, 1 - p])
+        points.append(f"{'M' if index == 0 else 'L'}{x(p):.2f},{y(entropy):.2f}")
+    entropy = entropy_bits([probability, 1 - probability])
+    px, py = x(probability), y(entropy)
+    grid = []
+    for index in range(6):
+        value = index / 5
+        grid.extend([
+            f'<line x1="{x(value):.2f}" y1="25" x2="{x(value):.2f}" y2="305" />',
+            f'<text x="{x(value):.2f}" y="329" text-anchor="middle">{value:.1f}</text>',
+            f'<line x1="70" y1="{y(value):.2f}" x2="760" y2="{y(value):.2f}" />',
+            f'<text x="55" y="{y(value) + 5:.2f}" text-anchor="end">{value:.1f}</text>',
+        ])
+    return f'''<style>
+    .binary-entropy-svg {{width:100%;height:auto;display:block;color:var(--foreground,#263044);}}
+    .binary-entropy-svg .grid line {{stroke:currentColor;opacity:.17}}
+    .binary-entropy-svg text {{fill:currentColor;font:14px system-ui,sans-serif}}
+    .binary-entropy-svg .axis-label {{font-size:16px}}
+    </style><svg class="binary-entropy-svg" viewBox="0 0 800 365"
+      role="img" aria-label="Binary entropy for the selected probability of heads">
+      <g class="grid">{''.join(grid)}</g>
+      <path d="{''.join(points)}" fill="none" stroke="#9b8af0" stroke-width="3.5" />
+      <line x1="{px:.2f}" y1="{py:.2f}" x2="{px:.2f}" y2="305"
+        stroke="#e04f4f" stroke-width="2" stroke-dasharray="7 6" />
+      <line x1="70" y1="{py:.2f}" x2="{px:.2f}" y2="{py:.2f}"
+        stroke="#e04f4f" stroke-width="2" stroke-dasharray="7 6" />
+      <circle cx="{px:.2f}" cy="{py:.2f}" r="10" fill="#de704b" />
+      <text class="axis-label" x="430" y="355" text-anchor="middle">Probability of heads</text>
+      <text class="axis-label" transform="translate(18 165) rotate(-90)" text-anchor="middle">Entropy (bits)</text>
+    </svg>'''
+
+
 def scientific_code_html(probability):
     """Show the scientific Python calculation at the selected probability."""
-    calculation = "import math\n\n" + inspect.getsource(entropy_bits)
+    calculation = '''import math
+
+def entropy_bits(probabilities):
+    """Entropy in bits for a valid finite probability distribution."""
+    return sum(-p * math.log2(p) for p in probabilities if p > 0)
+'''
     example = (
         f"prob = {float(probability):.2f}\n"
         "probabilities = [prob, 1 - prob]\n"
@@ -111,9 +155,14 @@ def figure_html(fig, description):
     return THEME_STYLES + '<div class="entropy-figure">' + ''.join(images) + '</div>'
 
 
-def view_control(params=None):
-    viewer = control_url(params, **{"view-as": "present"})
-    editor = control_url(params, **{"view-as": "edit"})
+def view_control(params=None, browser_runtime=False, in_browser_editor=False):
+    viewer_query = control_url(params, **{"view-as": "present"})
+    editor_query = control_url(params, **{"view-as": "edit"})
+    if browser_runtime:
+        viewer = f"../{viewer_query}" if in_browser_editor else viewer_query
+        editor = editor_query if in_browser_editor else f"edit/{editor_query}"
+    else:
+        viewer, editor = viewer_query, editor_query
     return """<style>
     .entropy-view-switch {border:2px solid #6554c0;border-radius:10px;padding:16px;margin:8px 0;}
     .entropy-view-switch nav {display:flex;flex-wrap:wrap;gap:12px;margin-top:10px;}
@@ -127,7 +176,7 @@ def view_control(params=None):
     </section>""".replace("__VIEWER__", viewer).replace("__EDITOR__", editor)
 
 
-def navigation_control(params=None):
+def navigation_control(params=None, browser_runtime=False, in_browser_editor=False):
     """An iframe permits event handlers; marimo sanitizes them in plain Html."""
     return """<!doctype html><html><head><style>
     html {background:#ffffff;color-scheme:light;}
@@ -136,7 +185,9 @@ def navigation_control(params=None):
     body.dark {color:#e6e8f2;background:#171d19;}
     .entropy-view-switch {margin:0!important;}
     p {margin-bottom:0;}
-    </style></head><body>""" + view_control(params) + appearance_control(params) + """
+    </style></head><body>""" + view_control(
+        params, browser_runtime, in_browser_editor
+    ) + appearance_control(params) + """
     <script>
     const parentWindow = window.parent;
     const sync = () => {

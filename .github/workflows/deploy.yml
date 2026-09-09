@@ -7,6 +7,7 @@ on:
       - main
     paths:
       - "assets/**"
+      - "notebooks/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -34,6 +35,7 @@ on:
       - main
     paths:
       - "assets/**"
+      - "notebooks/**"
       - "**.bib"
       - "**.html"
       - "**.js"
@@ -94,7 +96,8 @@ jobs:
       - name: Install and Build 🔧
         run: |
           sudo apt-get update && sudo apt-get install -y imagemagick
-          pip3 install --upgrade nbconvert
+          pip3 install --upgrade nbconvert "marimo==0.24.0" uv
+          python3 notebooks/entropy_2_1/build_web.py --output assets/notebooks/entropy-2-1
           export JEKYLL_ENV=production
           bundle exec jekyll build
       - name: Purge unused CSS 🧹

@@ -15,9 +15,17 @@ Chapter 1 previews the central questions of information theory: how efficiently 
 
 We begin the detailed development with entropy in Section 2.1. The accompanying notebook follows the book's definitions, lemmas, and examples through interactive plots, experiments, Python calculations, and Lean proofs.
 
-[Open the interactive Section 2.1 notebook in Molab](https://molab.marimo.io/github/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py){:target="_blank" rel="noopener noreferrer"}
+[Open the interactive Section 2.1 notebook full screen]({{ '/assets/notebooks/entropy-2-1/' | relative_url }}){:target="_blank" rel="noopener noreferrer"}
 
 [View the notebook source on GitHub](https://github.com/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py){:target="_blank" rel="noopener noreferrer"}
+
+<iframe
+  src="{{ '/assets/notebooks/entropy-2-1/' | relative_url }}"
+  title="Interactive Section 2.1 entropy notebook"
+  loading="lazy"
+  style="width: 100%; height: 900px; border: 1px solid var(--global-divider-color); border-radius: 8px; background: var(--global-bg-color);"
+  allow="clipboard-read; clipboard-write"
+></iframe>
 
 ---
 

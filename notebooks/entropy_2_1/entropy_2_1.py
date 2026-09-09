@@ -54,12 +54,14 @@ def _():
     _presentation_module = importlib.import_module("presentation")
     lab = _lab_support_module
     annotated_proof = _proof_help_module.annotated_proof
+    binary_entropy_svg = _presentation_module.binary_entropy_svg
     figure_html = _presentation_module.figure_html
     scientific_code_html = _presentation_module.scientific_code_html
     navigation_control = _presentation_module.navigation_control
 
     return (
         annotated_proof,
+        binary_entropy_svg,
         browser_runtime,
         figure_html,
         lab,
@@ -91,9 +93,14 @@ def _(mo):
 
 
 @app.cell
-def _(mo, navigation_control, navigation_params):
+def _(browser_runtime, mo, navigation_control, navigation_params):
     _params = navigation_params.to_dict()
-    mo.iframe(navigation_control(_params), height="250px")
+    _location = str(mo.notebook_location() or "")
+    _in_browser_editor = browser_runtime and _location.rstrip("/").endswith("/edit")
+    mo.iframe(
+        navigation_control(_params, browser_runtime, _in_browser_editor),
+        height="250px",
+    )
     return
 
 
@@ -146,23 +153,20 @@ def _(mo):
 
 
 @app.cell
-def _(coin_p, figure_html, lab, mo, np, plt, scientific_code_html, toss_again, toss_count):
-    _p = coin_p.value
-    _xs = np.linspace(0, 1, 201)
-    _entropy_values = [lab.entropy([float(x), float(1 - x)]) for x in _xs]
-    _entropy = lab.entropy([_p, 1 - _p])
-    _fig, _ax = plt.subplots(figsize=(8, 3.6), layout="constrained")
-    _ax.plot(_xs, _entropy_values, color="#6554c0", lw=3)
-    _ax.fill_between(_xs, _entropy_values, color="#6554c0", alpha=0.08)
-    _ax.plot([_p, _p], [0, _entropy], color="#e04f4f", ls="--", lw=1.8)
-    _ax.plot([0, _p], [_entropy, _entropy], color="#e04f4f", ls="--", lw=1.8)
-    _ax.scatter([_p], [_entropy], s=90, color="#de704b", zorder=4)
-    _ax.set(xlabel="Probability of heads", ylabel="Entropy (bits)", xlim=(0, 1), ylim=(-0.03, 1.1))
-    _ax.spines[["top", "right"]].set_visible(False)
-    _ax.grid(alpha=0.15)
+def _(binary_entropy_svg, coin_p, mo):
+    mo.Html(binary_entropy_svg(coin_p.value))
+    return
+
+
+@app.cell
+def _(coin_p, mo, scientific_code_html):
+    mo.Html(scientific_code_html(coin_p.value))
+    return
+
+
+@app.cell
+def _(mo, toss_again, toss_count):
     mo.vstack([
-        mo.Html(figure_html(_fig, "Binary entropy for the selected probability of heads")),
-        mo.Html(scientific_code_html(_p)),
         mo.md("""
         ### Coin-toss experiment
 
@@ -174,7 +178,6 @@ def _(coin_p, figure_html, lab, mo, np, plt, scientific_code_html, toss_again, t
         toss_count,
         toss_again,
     ])
-    plt.close(_fig)
     return
 
 
