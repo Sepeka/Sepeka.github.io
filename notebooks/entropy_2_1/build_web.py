@@ -49,6 +49,7 @@ def build(output: Path) -> None:
                     "--mode",
                     mode,
                     "--no-execute",
+                    "--no-sandbox",
                     "--force",
                 ],
                 cwd=stage,
