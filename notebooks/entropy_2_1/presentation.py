@@ -3,7 +3,6 @@ import base64
 from html import escape
 import inspect
 from io import BytesIO
-from pathlib import Path
 from urllib.parse import urlencode
 from pygments import highlight
 from pygments.formatters import HtmlFormatter
@@ -29,21 +28,34 @@ THEME_STYLES = '''<style>
 </style>'''
 
 
-def interactive_entropy_html(probability):
-    """Return a browser-native draggable entropy explorer.
-
-    Its iframe writes changes into marimo's built-in probability input, which
-    keeps the interaction compatible with local Python and browser WebAssembly.
-    """
-    template = Path(__file__).with_name("entropy_explorer.html").read_text()
+def scientific_code_html(probability):
+    """Show the scientific Python calculation at the selected probability."""
     calculation = "import math\n\n" + inspect.getsource(entropy_bits)
-    example = "probabilities = [prob, 1 - prob]\nentropy = entropy_bits(probabilities)"
-    formatter = HtmlFormatter(nowrap=True)
-    return (
-        template.replace("__INITIAL_PROBABILITY__", f"{float(probability):.2f}")
-        .replace("__CALCULATION_HTML__", highlight(calculation, PythonLexer(), formatter))
-        .replace("__EXAMPLE_HTML__", highlight(example, PythonLexer(), formatter))
+    example = (
+        f"prob = {float(probability):.2f}\n"
+        "probabilities = [prob, 1 - prob]\n"
+        "entropy = entropy_bits(probabilities)"
     )
+    formatter = HtmlFormatter(nowrap=True)
+    result = entropy_bits([float(probability), 1 - float(probability)])
+    return f'''<style>
+    .entropy-code-panel {{border:1px solid #888;border-radius:8px;padding:16px;margin:20px 0;}}
+    .entropy-code-panel p {{margin-bottom:22px;}}
+    .entropy-python-code {{display:block;white-space:pre-wrap;padding:15px 18px;border:1px solid #d0d7de;border-radius:6px;background:#f6f8fa;color:#1f2328;overflow-x:auto;font:14px/1.65 ui-monospace,monospace;}}
+    .entropy-python-code .k,.entropy-python-code .kn {{color:#0000ff}} .entropy-python-code .nf {{color:#795e26}}
+    .entropy-python-code .nb {{color:#267f99}} .entropy-python-code .s,.entropy-python-code .sd {{color:#a31515}}
+    .entropy-python-code .c,.entropy-python-code .c1 {{color:#008000;font-style:italic}} .entropy-python-code .mi,.entropy-python-code .mf {{color:#098658}}
+    .dark .entropy-python-code {{background:#1e1e1e;color:#d4d4d4;border-color:#454545}}
+    .dark .entropy-python-code .k,.dark .entropy-python-code .kn {{color:#c586c0}} .dark .entropy-python-code .nf {{color:#dcdcaa}}
+    .dark .entropy-python-code .nb {{color:#4ec9b0}} .dark .entropy-python-code .s,.dark .entropy-python-code .sd {{color:#ce9178}}
+    .dark .entropy-python-code .c,.dark .entropy-python-code .c1 {{color:#6a9955}} .dark .entropy-python-code .mi,.dark .entropy-python-code .mf {{color:#b5cea8}}
+    </style><section class="entropy-code-panel">
+    <strong>See the calculation in Python</strong>
+    <p>This is the function used for the notebook's entropy calculations in bits. Zero-probability outcomes contribute zero.</p>
+    <pre class="entropy-python-code">{highlight(calculation, PythonLexer(), formatter)}</pre>
+    <pre class="entropy-python-code">{highlight(example, PythonLexer(), formatter)}</pre>
+    <code>entropy = {result:.6f}  # bits</code>
+    </section>'''
 
 
 def control_url(params, **changes):

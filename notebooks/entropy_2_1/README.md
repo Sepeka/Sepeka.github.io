@@ -10,8 +10,7 @@ in this and future notebooks. Preserve their labels, probabilities, assumptions,
 and results. Added simulations and alternative strategies are optional extensions.
 
 - Example 2.1.1: the coin represents the book's binary variable (heads is 1,
-  tails is 0). Its draggable point and probability inputs explore the same
-  binary entropy curve.
+  tails is 0). Its probability input explores the same binary entropy curve.
 - Example 2.1.2: a, b, c, d have probabilities 50%, 25%, 12.5%, 12.5%.
   The default tree asks about a, then b, then c as needed, with an expected
   1.75 questions and entropy of 1.75 bits, as in the book.
@@ -35,14 +34,10 @@ python -m marimo run entropy_2_1.py
 Python requirements: marimo 0.24.0, numpy, matplotlib, and Pygments.
 `lab_support.py`, `proof_help.py`, and `presentation.py` must stay beside the
 notebook, with the `proofs` directory.
-Also keep `entropy_explorer.html` and `scientific.py` beside the notebook. The
-orange point can be dragged, clicked, or moved with arrow keys. Its probability
-box, editable `prob = ...` assignment, and the probability box above the table
-stay synchronized, updating the plot and all calculations.
-The diagram previews entropy during dragging and commits the new probability
-to Python on release. The visible function is the actual scientific core used
-by the notebook's bit-entropy calculations. Viewer mode supports editing the
-probability assignment; editing the full function remains available in Edit mode.
+Also keep `scientific.py` beside the notebook. Native marimo probability boxes
+drive the binary entropy plot and the entropy table. The visible function is
+the actual scientific core used by the notebook's bit-entropy calculations;
+editing the full notebook remains available in Edit mode.
 
 The editor shows the Python code that creates the plots. `marimo run` is the
 reader-only view and hides the code. The **Light / Dark** appearance control
@@ -66,7 +61,7 @@ marimo's presentation/edit URL settings outside these designated local ports.
 
 ## Contents
 
-- Draggable entropy curve, probability entry/code assignment, and repeatable random samples.
+- Probability-controlled entropy curve, visible Python calculation, and repeatable random samples.
 - Per-outcome logarithmic terms, entropy contributions, and bits/nats conversion.
 - Four-symbol guessing game, three question trees, exact expectations,
   and simulated averages. Changing strategy or drawing a new secret resets
