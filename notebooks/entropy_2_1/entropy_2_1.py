@@ -422,8 +422,8 @@ def _(mo):
     stated domain**. Here we formalize the two numbered lemmas of Section 2.1
     for finite alphabets, including outcomes with zero probability.
 
-    Lean checks the formal argument. Hover over the proof lines for help.
-    The Python visualizations themselves are not formally verified.
+    The displayed proofs were checked offline with Lean. Hover over the proof
+    lines for help. The Python visualizations themselves are not formally verified.
     """)
     theorem_choice = mo.ui.radio(["2.1.1 · Nonnegativity", "2.1.2 · Change of base"], value="2.1.1 · Nonnegativity", inline=True)
     mo.vstack([_intro, theorem_choice])
@@ -481,45 +481,6 @@ def _(lab, mo):
             'Open and edit this proof in Lean Web</a>'
         ),
         mo.md("Opens both proofs and their supporting definitions in a new tab. You can edit them and inspect Lean’s feedback without installing Lean. Lean Web checks the code on its server; its Lean/mathlib version may differ from the locally verified version."),
-    ])
-    return
-
-
-@app.cell
-def _(lab, mo):
-    _saved = lab.saved_verification()
-    if _saved and _saved.get("ok") and _saved.get("source_matches"):
-        _message = f"**Saved verification passed** for this exact proof source. Checked {_saved['checked_at']} using {_saved.get('toolchain', 'Lean')}. This is a recorded check, not a new check in this session."
-        _kind = "success"
-    else:
-        _message = "**No matching successful saved verification.** Run the checker below for the current proof source."
-        _kind = "warn"
-    check_lean = mo.ui.run_button(
-        label="Check both proofs with Lean" if not browser_runtime else "Local Lean check unavailable in browser",
-        kind="success",
-        disabled=browser_runtime,
-    )
-    mo.vstack([mo.callout(mo.md(_message), kind=_kind), check_lean,
-               mo.md("The local button runs Lean and reports its output. In the browser-only version, use **Open and edit this proof in Lean Web** above; the saved verification remains visible.")])
-    return (check_lean,)
-
-
-@app.cell
-def _(browser_runtime, check_lean, lab, mo):
-    _saved = lab.saved_verification()
-    _initial_result = mo.vstack([
-        mo.md("**Recorded Lean result** · Both proofs passed."),
-        mo.accordion({"Saved checker output and provenance": mo.json(_saved)}),
-    ]) if _saved and _saved.get("ok") and _saved.get("source_matches") else mo.md("No successful saved result for this proof source. Click the check button to validate it.")
-    mo.stop(browser_runtime, _initial_result)
-    mo.stop(not check_lean.value, _initial_result)
-    with mo.status.spinner(title="Lean is checking the proofs…"):
-        fresh_check = lab.check_proofs()
-    _ok = fresh_check["ok"]
-    mo.vstack([
-        mo.callout(f"{'Verified by Lean and dependency audit' if _ok else 'Verification did not pass'} · {fresh_check['seconds']} seconds", kind="success" if _ok else "danger"),
-        mo.md(f"Source SHA-256: `{fresh_check['sha256']}`"),
-        mo.accordion({"Checker output and provenance": mo.json(fresh_check)}),
     ])
     return
 
