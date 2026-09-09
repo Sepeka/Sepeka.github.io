@@ -67,8 +67,7 @@ marimo's presentation/edit URL settings outside these designated local ports.
   and simulated averages. Changing strategy or drawing a new secret resets
   the answer-reveal button.
 - Probability-weight playground, renaming, and an impossible outcome.
-- Mathematical statements of the two numbered lemmas, annotated Lean source,
-  saved verification provenance, and a button for a fresh local Lean check.
+- Mathematical statements of the two numbered lemmas and annotated Lean source.
 - Hover over proof lines for explanations of the assumptions and tactics.
   Keyboard focus shows the same help; click or tap a line to pin its help open.
   The complete source includes the same notes. These authored explanations
@@ -90,12 +89,10 @@ entropy, and optimality of the example's question tree are not formally
 certified by this file. The question-count example is numerically checked.
 The prose explains the relationship between the formal statements and the book.
 
-`lab_support.py` invokes Lean and audits the output of `#print axioms` for every
-named theorem. Only `propext`, `Classical.choice`, and `Quot.sound` are allowed.
-The UI never claims a fresh check based only on saved results. Saved results
-are matched against the proof file's SHA-256, and include the mathlib revision,
-Lean version, command, and output. They are a reproducibility record, not a
-cryptographic attestation of the whole dependency tree.
+`lab_support.py` provides the offline verification command and audits the output
+of `#print axioms` for every named theorem. Only `propext`, `Classical.choice`,
+and `Quot.sound` are allowed. The notebook displays the proof with hover
+explanations and does not run Lean for readers.
 
 ## Lean configuration
 
@@ -128,7 +125,5 @@ the interactive entropy explorer, styles, Python helpers, and proof artifacts.
 After creating a permanent Molab mirror, its share URL can replace the import
 URL in the blog post.
 
-The native Lean subprocess button requires Lean on the machine running the
-notebook. Readers without Lean can use **Open and edit this proof in Lean Web**,
-which provides live online proof checking, while the saved verification remains
-visible in the notebook.
+The proofs were checked offline. The notebook keeps the **Open and edit this
+proof in Lean Web** link for readers who want to experiment with the source.
