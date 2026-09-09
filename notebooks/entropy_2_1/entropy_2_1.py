@@ -33,7 +33,6 @@ def _():
 
         _directory = Path("/tmp/entropy-lab-support")
         _files = [
-            "entropy_explorer.html",
             "lab_support.py",
             "presentation.py",
             "proof_help.py",
@@ -56,20 +55,20 @@ def _():
     lab = _lab_support_module
     annotated_proof = _proof_help_module.annotated_proof
     figure_html = _presentation_module.figure_html
-    interactive_entropy_html = _presentation_module.interactive_entropy_html
+    scientific_code_html = _presentation_module.scientific_code_html
     navigation_control = _presentation_module.navigation_control
 
     return (
         annotated_proof,
         browser_runtime,
         figure_html,
-        interactive_entropy_html,
         lab,
         math,
         mo,
         navigation_control,
         np,
         plt,
+        scientific_code_html,
     )
 
 
@@ -131,8 +130,7 @@ def _(mo):
 
     In Example 2.1.1, the binary random variable is 1 with probability p and 0
     with probability 1 − p. Here, heads represents 1 and tails represents 0.
-    Change p by dragging the orange point, entering a probability, or editing
-    the Python assignment. Observe how the entropy changes.
+    Enter p in the probability box and observe how the entropy changes.
     """)
     return
 
@@ -140,16 +138,31 @@ def _(mo):
 @app.cell
 def _(mo):
     coin_p = mo.ui.number(0, 1, step=0.01, value=0.5,
-                          label="Probability of heads above entropy table")
+                          label="Probability of heads")
     toss_count = mo.ui.number(start=1, step=1, value=20, label="Number of tosses")
     toss_again = mo.ui.button(value=0, on_click=lambda n: n + 1, label="Toss again")
+    coin_p
     return coin_p, toss_again, toss_count
 
 
 @app.cell
-def _(coin_p, interactive_entropy_html, mo, toss_again, toss_count):
+def _(coin_p, figure_html, lab, mo, np, plt, scientific_code_html, toss_again, toss_count):
+    _p = coin_p.value
+    _xs = np.linspace(0, 1, 201)
+    _entropy_values = [lab.entropy([float(x), float(1 - x)]) for x in _xs]
+    _entropy = lab.entropy([_p, 1 - _p])
+    _fig, _ax = plt.subplots(figsize=(8, 3.6), layout="constrained")
+    _ax.plot(_xs, _entropy_values, color="#6554c0", lw=3)
+    _ax.fill_between(_xs, _entropy_values, color="#6554c0", alpha=0.08)
+    _ax.plot([_p, _p], [0, _entropy], color="#e04f4f", ls="--", lw=1.8)
+    _ax.plot([0, _p], [_entropy, _entropy], color="#e04f4f", ls="--", lw=1.8)
+    _ax.scatter([_p], [_entropy], s=90, color="#de704b", zorder=4)
+    _ax.set(xlabel="Probability of heads", ylabel="Entropy (bits)", xlim=(0, 1), ylim=(-0.03, 1.1))
+    _ax.spines[["top", "right"]].set_visible(False)
+    _ax.grid(alpha=0.15)
     mo.vstack([
-        mo.iframe(interactive_entropy_html(coin_p.value), height="880px"),
+        mo.Html(figure_html(_fig, "Binary entropy for the selected probability of heads")),
+        mo.Html(scientific_code_html(_p)),
         mo.md("""
         ### Coin-toss experiment
 
@@ -161,6 +174,7 @@ def _(coin_p, interactive_entropy_html, mo, toss_again, toss_count):
         toss_count,
         toss_again,
     ])
+    plt.close(_fig)
     return
 
 
@@ -205,7 +219,7 @@ def _(coin_p, figure_html, lab, mo, np, plt, toss_again, toss_count):
 
 
 @app.cell
-def _(coin_p, mo):
+def _(mo):
     _intro = mo.md(r"""
     ## 2 · Reading the entropy sum
 
@@ -213,17 +227,19 @@ def _(coin_p, mo):
     their product. Adding the products in the last column gives the entropy.
     Change the heads probability above and compare the two rows.
     """)
+    table_p = mo.ui.number(0, 1, step=0.01, value=0.5,
+                           label="Probability of heads")
     units = mo.ui.radio(["Bits (base 2)", "Nats (base e)"], value="Bits (base 2)", inline=True, label="Information units")
-    mo.vstack([_intro, coin_p, units])
-    return (units,)
+    mo.vstack([_intro, table_p, units])
+    return table_p, units
 
 
 @app.cell
-def _(coin_p, figure_html, lab, math, mo, plt, units):
+def _(figure_html, lab, math, mo, plt, table_p, units):
     _base = 2 if units.value.startswith("Bits") else math.e
     _unit = "bits" if _base == 2 else "nats"
     _log_term_label = "−log₂ p(x)" if _base == 2 else "−ln p(x)"
-    _probability = coin_p.value
+    _probability = table_p.value
     _p = [_probability, 1 - _probability]
     _rows = []
     for _name, _prob, _contribution in zip(["Heads", "Tails"], _p, lab.contributions(_p, _base)):
