@@ -100,6 +100,11 @@ jobs:
           python3 notebooks/entropy_2_1/build_web.py --output assets/notebooks/entropy-2-1
           export JEKYLL_ENV=production
           bundle exec jekyll build
+          # Jekyll skips files whose names begin with an underscore. Marimo's
+          # generated bundle contains hashed JavaScript chunks with such names,
+          # so copy the complete export over the Jekyll output verbatim.
+          mkdir -p _site/assets/notebooks/entropy-2-1
+          cp -a assets/notebooks/entropy-2-1/. _site/assets/notebooks/entropy-2-1/
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
