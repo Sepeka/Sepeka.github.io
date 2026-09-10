@@ -1,1 +1,1 @@
-function t(t){return"object"==typeof t&&"length"in t?t:Array.from(t)}Array.prototype.slice;export{t};
+Array.prototype.slice;function t(r){return typeof r=="object"&&"length"in r?r:Array.from(r)}export{t};

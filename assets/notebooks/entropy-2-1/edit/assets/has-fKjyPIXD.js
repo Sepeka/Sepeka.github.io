@@ -1,1 +1,1 @@
-function o(t,n){return null!=t&&a.call(t,n)}function l(t,r){return null!=t&&n(t,r,e)}import{t as n}from"./_hasPath-D0QK37mF.js";var a=Object.prototype.hasOwnProperty,e=o,u=l;export{u as t};
+import{t as n}from"./_hasPath-D0QK37mF.js";var a=Object.prototype.hasOwnProperty;function o(r,t){return r!=null&&a.call(r,t)}var e=o;function l(r,t){return r!=null&&n(r,t,e)}var u=l;export{u as t};

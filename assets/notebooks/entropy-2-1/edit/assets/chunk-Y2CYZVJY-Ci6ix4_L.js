@@ -1,1 +1,1 @@
-var n=Object.defineProperty,t=(e,a)=>n(e,"name",{value:a,configurable:!0}),o=(e,a)=>{for(var r in a)n(e,r,{get:a[r],enumerable:!0})};export{t as n,o as t};
+var n=Object.defineProperty,t=(a,e)=>n(a,"name",{value:e,configurable:!0}),o=(a,e)=>{for(var r in e)n(a,r,{get:e[r],enumerable:!0})};export{t as n,o as t};

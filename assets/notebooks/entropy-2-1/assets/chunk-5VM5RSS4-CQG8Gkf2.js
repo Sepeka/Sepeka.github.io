@@ -1,1 +1,15 @@
-import{n as e}from"./chunk-Y2CYZVJY-Ci6ix4_L.js";var o=e(()=>"\n  /* Font Awesome icon styling - consolidated */\n  .label-icon {\n    display: inline-block;\n    height: 1em;\n    overflow: visible;\n    vertical-align: -0.125em;\n  }\n  \n  .node .label-icon path {\n    fill: currentColor;\n    stroke: revert;\n    stroke-width: revert;\n  }\n","getIconStyles");export{o as t};
+import{n as e}from"./chunk-Y2CYZVJY-Ci6ix4_L.js";var o=e(()=>`
+  /* Font Awesome icon styling - consolidated */
+  .label-icon {
+    display: inline-block;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+  }
+  
+  .node .label-icon path {
+    fill: currentColor;
+    stroke: revert;
+    stroke-width: revert;
+  }
+`,"getIconStyles");export{o as t};

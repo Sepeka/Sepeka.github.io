@@ -1,1 +1,1 @@
-function c(r,t,a){r=+r,t=+t,a=(e=arguments.length)<2?(t=r,r=0,1):e<3?1:+a;for(var c=-1,e=0|Math.max(0,Math.ceil((t-r)/a)),n=Array(e);++c<e;)n[c]=r+c*a;return n}export{c as t};
+function c(a,r,t){a=+a,r=+r,t=(h=arguments.length)<2?(r=a,a=0,1):h<3?1:+t;for(var o=-1,h=Math.max(0,Math.ceil((r-a)/t))|0,u=Array(h);++o<h;)u[o]=a+o*t;return u}export{c as t};

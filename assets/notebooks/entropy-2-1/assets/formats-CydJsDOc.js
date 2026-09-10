@@ -1,1 +1,1 @@
-function o(r){function o(r){return!(null==r||!r.schema)&&Array.isArray(r.schema.fields)&&"function"==typeof r.toArray}return(o(r)?r:f(r)).toArray()}function f(r,o){return a(r,o??{useProxy:!0})}import{o as a}from"./tooltip-BUmTS76K.js";o.responseType="arrayBuffer";export{o as t};
+import{o as a}from"./tooltip-BUmTS76K.js";function o(r){function n(t){return!!(t!=null&&t.schema)&&Array.isArray(t.schema.fields)&&typeof t.toArray=="function"}return(n(r)?r:f(r)).toArray()}o.responseType="arrayBuffer";function f(r,n){return a(r,n??{useProxy:!0})}export{o as t};

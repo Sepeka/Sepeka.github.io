@@ -1,1 +1,1 @@
-function r(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replaceAll(/[xy]/g,x=>{let r=Math.trunc(16*Math.random());return("x"===x?r:3&r|8).toString(16)})}export{r as t};
+function r(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replaceAll(/[xy]/g,t=>{let x=Math.trunc(Math.random()*16);return(t==="x"?x:x&3|8).toString(16)})}export{r as t};

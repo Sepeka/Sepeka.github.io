@@ -1,1 +1,1 @@
-function t(r,t){if(!r)throw Error(t)}export{t};
+function t(r,o){if(!r)throw Error(o)}export{t};

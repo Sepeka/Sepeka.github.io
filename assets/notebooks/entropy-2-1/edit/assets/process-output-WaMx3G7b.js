@@ -1,1 +1,1 @@
-function r(t){return t.mimetype.startsWith("application/vnd.marimo")||"text/html"===t.mimetype?m(a.asString(t.data)):i(a.asString(t.data))}import{nt as i,rt as m}from"./cells-DTFqEQb0.js";import{t as a}from"./strings-DmKKoXrM.js";export{r as t};
+import{nt as i,rt as m}from"./cells-DTFqEQb0.js";import{t as a}from"./strings-DmKKoXrM.js";function r(t){return t.mimetype.startsWith("application/vnd.marimo")||t.mimetype==="text/html"?m(a.asString(t.data)):i(a.asString(t.data))}export{r as t};
