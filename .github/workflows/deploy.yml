@@ -105,6 +105,9 @@ jobs:
           # so copy the complete export over the Jekyll output verbatim.
           mkdir -p _site/assets/notebooks/entropy-2-1
           cp -a assets/notebooks/entropy-2-1/. _site/assets/notebooks/entropy-2-1/
+          # Tell GitHub Pages to serve the already-built site as static files;
+          # otherwise its second Jekyll pass hides underscore-prefixed chunks.
+          touch _site/.nojekyll
       - name: Purge unused CSS 🧹
         run: |
           npm install -g purgecss
