@@ -15,17 +15,62 @@ Chapter 1 previews the central questions of information theory: how efficiently 
 
 We begin the detailed development with entropy in Section 2.1. The accompanying notebook follows the book's definitions, lemmas, and examples through interactive plots, experiments, Python calculations, and Lean proofs.
 
-[Open the interactive Section 2.1 notebook full screen]({{ '/assets/notebooks/entropy-2-1/' | relative_url }}){:target="_blank" rel="noopener noreferrer"}
+<a id="entropy-notebook-fullscreen" href="{{ '/assets/notebooks/entropy-2-1/' | relative_url }}" target="_blank" rel="noopener noreferrer">Open the interactive Section 2.1 notebook full screen</a>
 
 [View the notebook source on GitHub](https://github.com/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py){:target="_blank" rel="noopener noreferrer"}
 
 <iframe
-  src="{{ '/assets/notebooks/entropy-2-1/' | relative_url }}"
+  id="entropy-notebook"
+  data-src="{{ '/assets/notebooks/entropy-2-1/' | relative_url }}"
   title="Interactive Section 2.1 entropy notebook"
   loading="lazy"
   style="width: 100%; height: 900px; border: 1px solid var(--global-divider-color); border-radius: 8px; background: var(--global-bg-color);"
   allow="clipboard-read; clipboard-write"
 ></iframe>
+
+<script>
+  (() => {
+    const notebook = document.getElementById("entropy-notebook");
+    const fullscreen = document.getElementById("entropy-notebook-fullscreen");
+
+    const pageTheme = () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+
+    const themedUrl = () => {
+      const url = new URL(notebook.dataset.src, window.location.href);
+      url.searchParams.set("theme", pageTheme());
+      return url;
+    };
+
+    const applyTheme = () => {
+      const theme = pageTheme();
+      const dark = theme === "dark";
+      const url = themedUrl();
+      fullscreen.href = url.href;
+
+      if (!notebook.src || notebook.src === "about:blank") {
+        notebook.src = url.href;
+        return;
+      }
+
+      try {
+        const notebookDocument = notebook.contentDocument;
+        notebookDocument.body.classList.toggle("dark", dark);
+        notebookDocument.body.classList.toggle("dark-theme", dark);
+        notebookDocument.body.dataset.theme = theme;
+      } catch (_error) {
+        // The notebook is same-origin in production. Its initial URL already
+        // carries the correct theme if a browser blocks DOM access.
+      }
+    };
+
+    notebook.addEventListener("load", applyTheme);
+    new MutationObserver(applyTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    applyTheme();
+  })();
+</script>
 
 ---
 
