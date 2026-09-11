@@ -40,10 +40,10 @@ the actual scientific core used by the notebook's bit-entropy calculations;
 editing the full notebook remains available in Edit mode.
 
 The editor shows the Python code that creates the plots. `marimo run` is the
-reader-only view and hides the code. The **Light / Dark** appearance control
-at the top opens the same notebook with marimo's native theme URL setting;
-switching appearance reloads the page. Every plot includes a matching palette
-for each theme, so the curves, axes, and labels remain readable.
+reader-only view and hides the code. When embedded in the blog post, the
+notebook inherits the website's computed light or dark theme. Every plot
+includes a matching palette for each theme, so the curves, axes, and labels
+remain readable.
 
 The recommended `start.py` launcher starts an automatic viewer on
 `http://localhost:2718` and a separate code editor on `http://localhost:2720`.

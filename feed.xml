@@ -1,1 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://sepeka.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://sepeka.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-09-10T23:20:42+00:00</updated><id>https://sepeka.github.io/feed.xml</id><title type="html">Sepeka</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Interactivate Information Theory</title><link href="https://sepeka.github.io/blog/2026/Interactivate-Information-Theory/" rel="alternate" type="text/html" title="Interactivate Information Theory"/><published>2026-06-24T00:00:00+00:00</published><updated>2026-06-24T00:00:00+00:00</updated><id>https://sepeka.github.io/blog/2026/Interactivate-Information-Theory</id><content type="html" xml:base="https://sepeka.github.io/blog/2026/Interactivate-Information-Theory/"><![CDATA[<p>Claude Shannon sought to inject a note of moderation by warning that his field was being oversold as a universal panacea <a href="#reference-1" title="The Bandwagon">[1]</a>; ironically, time has shown that this temporary “bandwagon” was actually the arrival of one of the most enduring mathematical frameworks ever conceived.</p> <p>Chapter 1 previews the central questions of information theory: how efficiently information can be described, and how reliably it can be transmitted through a noisy channel. It introduces entropy as the fundamental limit of lossless compression, mutual information as a measure of dependence, and channel capacity as the highest reliable communication rate. It also shows how these ideas connect to typical sequences, statistical inference, gambling, and Kolmogorov complexity.</p> <p>We begin the detailed development with entropy in Section 2.1. The accompanying notebook follows the book’s definitions, lemmas, and examples through interactive plots, experiments, Python calculations, and Lean proofs.</p> <p><a href="/assets/notebooks/entropy-2-1/" target="_blank" rel="noopener noreferrer">Open the interactive Section 2.1 notebook full screen</a></p> <p><a href="https://github.com/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py" target="_blank" rel="noopener noreferrer">View the notebook source on GitHub</a></p> <iframe src="/assets/notebooks/entropy-2-1/" title="Interactive Section 2.1 entropy notebook" loading="lazy" style="width: 100%; height: 900px; border: 1px solid var(--global-divider-color); border-radius: 8px; background: var(--global-bg-color);" allow="clipboard-read; clipboard-write"></iframe> <hr/> <p id="reference-1">[1] C. E. Shannon, <a href="https://doi.org/10.1109/TIT.1956.1056774">“The Bandwagon”</a>, <em>IEEE Transactions on Information Theory</em>, vol. 2, no. 1, p. 3, Mar. 1956. doi: 10.1109/TIT.1956.1056774.</p>]]></content><author><name></name></author><category term="Information-Theory"/><summary type="html"><![CDATA[Interactivate Information Theory: learn information theory in an interactive, modern way.]]></summary></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://sepeka.github.io/feed.xml" rel="self" type="application/atom+xml"/><link href="https://sepeka.github.io/" rel="alternate" type="text/html" hreflang="en"/><updated>2026-09-11T09:52:44+00:00</updated><id>https://sepeka.github.io/feed.xml</id><title type="html">Sepeka</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design. </subtitle><entry><title type="html">Interactivate Information Theory</title><link href="https://sepeka.github.io/blog/2026/Interactivate-Information-Theory/" rel="alternate" type="text/html" title="Interactivate Information Theory"/><published>2026-06-24T00:00:00+00:00</published><updated>2026-06-24T00:00:00+00:00</updated><id>https://sepeka.github.io/blog/2026/Interactivate-Information-Theory</id><content type="html" xml:base="https://sepeka.github.io/blog/2026/Interactivate-Information-Theory/"><![CDATA[<p>Claude Shannon sought to inject a note of moderation by warning that his field was being oversold as a universal panacea <a href="#reference-1" title="The Bandwagon">[1]</a>; ironically, time has shown that this temporary “bandwagon” was actually the arrival of one of the most enduring mathematical frameworks ever conceived.</p> <p>Chapter 1 previews the central questions of information theory: how efficiently information can be described, and how reliably it can be transmitted through a noisy channel. It introduces entropy as the fundamental limit of lossless compression, mutual information as a measure of dependence, and channel capacity as the highest reliable communication rate. It also shows how these ideas connect to typical sequences, statistical inference, gambling, and Kolmogorov complexity.</p> <p>We begin the detailed development with entropy in Section 2.1. The accompanying notebook follows the book’s definitions, lemmas, and examples through interactive plots, experiments, Python calculations, and Lean proofs.</p> <p><a id="entropy-notebook-fullscreen" href="/assets/notebooks/entropy-2-1/" target="_blank" rel="noopener noreferrer">Open the interactive Section 2.1 notebook full screen</a></p> <p><a href="https://github.com/Sepeka/Sepeka.github.io/blob/main/notebooks/entropy_2_1/entropy_2_1.py" target="_blank" rel="noopener noreferrer">View the notebook source on GitHub</a></p> <iframe id="entropy-notebook" data-src="/assets/notebooks/entropy-2-1/" title="Interactive Section 2.1 entropy notebook" loading="lazy" style="width: 100%; height: 900px; border: 1px solid var(--global-divider-color); border-radius: 8px; background: var(--global-bg-color);" allow="clipboard-read; clipboard-write"></iframe> <script>
+  (() => {
+    const notebook = document.getElementById("entropy-notebook");
+    const fullscreen = document.getElementById("entropy-notebook-fullscreen");
+
+    const pageTheme = () => (document.documentElement.dataset.theme === "dark" ? "dark" : "light");
+
+    const themedUrl = () => {
+      const url = new URL(notebook.dataset.src, window.location.href);
+      url.searchParams.set("theme", pageTheme());
+      return url;
+    };
+
+    const applyTheme = () => {
+      const theme = pageTheme();
+      const dark = theme === "dark";
+      const url = themedUrl();
+      fullscreen.href = url.href;
+
+      if (!notebook.src || notebook.src === "about:blank") {
+        notebook.src = url.href;
+        return;
+      }
+
+      try {
+        const notebookDocument = notebook.contentDocument;
+        notebookDocument.body.classList.toggle("dark", dark);
+        notebookDocument.body.classList.toggle("dark-theme", dark);
+        notebookDocument.body.dataset.theme = theme;
+      } catch (_error) {
+        // The notebook is same-origin in production. Its initial URL already
+        // carries the correct theme if a browser blocks DOM access.
+      }
+    };
+
+    notebook.addEventListener("load", applyTheme);
+    new MutationObserver(applyTheme).observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"],
+    });
+    applyTheme();
+  })();
+</script> <hr/> <p id="reference-1">[1] C. E. Shannon, <a href="https://doi.org/10.1109/TIT.1956.1056774">“The Bandwagon”</a>, <em>IEEE Transactions on Information Theory</em>, vol. 2, no. 1, p. 3, Mar. 1956. doi: 10.1109/TIT.1956.1056774.</p>]]></content><author><name></name></author><category term="Information-Theory"/><summary type="html"><![CDATA[Interactivate Information Theory: learn information theory in an interactive, modern way.]]></summary></entry></feed>

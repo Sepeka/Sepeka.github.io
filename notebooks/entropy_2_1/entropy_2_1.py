@@ -97,9 +97,13 @@ def _(browser_runtime, mo, navigation_control, navigation_params):
     _params = navigation_params.to_dict()
     _location = str(mo.notebook_location() or "")
     _in_browser_editor = browser_runtime and _location.rstrip("/").endswith("/edit")
-    mo.iframe(
-        navigation_control(_params, browser_runtime, _in_browser_editor),
-        height="250px",
+    mo.Html(
+        navigation_control(
+            _params,
+            browser_runtime,
+            _in_browser_editor,
+            _location,
+        )
     )
     return
 
